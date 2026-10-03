@@ -6,6 +6,8 @@ import TherapeuticAreaPage from '../features/therapeutic/TherapeuticAreaPage.jsx
 import TherapeuticTopicPage from '../features/therapeutic/TherapeuticTopicPage.jsx';
 import DiabetesMiniTopicPage from '../features/therapeutic/DiabetesMiniTopicPage.jsx';
 
+const AMBERTHEORY_LOGO = 'https://raw.githubusercontent.com/scaleblueprint/form-and-wonder/main/public/ambertheory-lockup.jpg';
+
 function parseHash() {
   const raw = window.location.hash.replace(/^#\/?/, '') || 'home';
   const [path, queryString = ''] = raw.split('?');
@@ -54,8 +56,8 @@ export default function MedicalLearningPlatform() {
 
 function AmberTheoryBrand({ navigate, footer = false }) {
   return <button className={`brand amber-brand${footer ? ' amber-brand-footer' : ''}`} onClick={()=>navigate('home')} aria-label="AmberTheory Medical Learning Lab home">
-    <img className="amber-brand-mark" src="/amber-theory-mark.svg" alt="" aria-hidden="true"/>
-    <span className="amber-brand-copy"><strong>AmberTheory</strong><small>Medical Learning Lab</small></span>
+    <img className="amber-brand-lockup" src={AMBERTHEORY_LOGO} alt="AmberTheory"/>
+    <span className="amber-product-name">Medical Learning Lab</span>
   </button>;
 }
 
