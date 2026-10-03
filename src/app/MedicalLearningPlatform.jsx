@@ -38,7 +38,7 @@ export default function MedicalLearningPlatform() {
     document.title = `${title} — AmberTheory`;
   }, [route]);
 
-  if (route.type === 'lesson') return <LessonPage id={route.id} systemId={resolvedSystemId || 'cardiovascular'} navigate={navigate}/>;
+  if (route.type === 'lesson') return <LessonPage key={`${resolvedSystemId || 'cardiovascular'}:${route.id}`} id={route.id} systemId={resolvedSystemId || 'cardiovascular'} navigate={navigate}/>;
   if (route.type === 'subject') return <PageShell navigate={navigate}><SubjectPage id={route.id} navigate={navigate}/></PageShell>;
   return <PageShell navigate={navigate}><HomePage navigate={navigate}/></PageShell>;
 }
