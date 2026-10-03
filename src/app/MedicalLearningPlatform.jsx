@@ -2,11 +2,17 @@ import { useEffect, useState } from 'react';
 import HomePage from '../features/platform/HomePage.jsx';
 import SubjectPage from '../features/platform/SubjectPage.jsx';
 import LessonPage from '../features/learning/LessonPage.jsx';
+import { findLessonSystem, lessonRoute } from '../platform/catalog/learningNavigation.js';
 
 function parseHash() {
   const raw = window.location.hash.replace(/^#\/?/, '') || 'home';
-  const [type, id] = raw.split('/');
-  return { type, id };
+  const parts = raw.split('/').filter(Boolean);
+  const [type, first, second] = parts;
+  if (type === 'lesson') {
+    if (second) return { type, systemId: first, id: second };
+    return { type, systemId: null, id: first };
+  }
+  return { type, id: first || null, systemId: null };
 }
 
 export default function MedicalLearningPlatform() {
@@ -18,12 +24,21 @@ export default function MedicalLearningPlatform() {
     return () => window.removeEventListener('hashchange', onHash);
   }, []);
   const navigate = (to) => { window.location.hash = to; };
+
+  const resolvedSystemId = route.type === 'lesson' ? (route.systemId || findLessonSystem(route.id)) : null;
+
   useEffect(() => {
-    const title = route.type === 'lesson' ? 'Lesson' : route.type === 'subject' ? 'Physiology' : 'Medical Learning Lab';
+    if (route.type === 'lesson' && !route.systemId && resolvedSystemId && route.id) {
+      window.history.replaceState(null, '', `#${lessonRoute(resolvedSystemId, route.id)}`);
+    }
+  }, [route, resolvedSystemId]);
+
+  useEffect(() => {
+    const title = route.type === 'lesson' ? 'Physiology lesson' : route.type === 'subject' ? 'Physiology' : 'Medical Learning Lab';
     document.title = `${title} — AmberTheory`;
   }, [route]);
 
-  if (route.type === 'lesson') return <LessonPage id={route.id} navigate={navigate}/>;
+  if (route.type === 'lesson') return <LessonPage id={route.id} systemId={resolvedSystemId || 'cardiovascular'} navigate={navigate}/>;
   if (route.type === 'subject') return <PageShell navigate={navigate}><SubjectPage id={route.id} navigate={navigate}/></PageShell>;
   return <PageShell navigate={navigate}><HomePage navigate={navigate}/></PageShell>;
 }
