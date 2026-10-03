@@ -1,4 +1,5 @@
 import { getSubject, getSystems, getLessons } from '../../platform/catalog/catalogRepository.js';
+import { lessonRoute } from '../../platform/catalog/learningNavigation.js';
 
 export default function SubjectPage({ id, navigate }) {
   const subject = getSubject(id);
@@ -17,12 +18,12 @@ export default function SubjectPage({ id, navigate }) {
       <aside className="system-list">
         <p className="aside-label">SYSTEMS</p>
         {systems.map(system => <div key={system.id} className={`system-row ${system.status}`}>
-          <span>{system.title}</span><small>{system.status === 'available' ? '5 lessons' : 'Later'}</small>
+          <span>{system.title}</span><small>{system.status === 'available' ? `${getLessons(system.id).length} lessons` : 'Later'}</small>
         </div>)}
       </aside>
       <main className="lesson-list">
-        <div className="lesson-list-head"><div><p className="eyebrow">CARDIOVASCULAR SYSTEM</p><h2>Start with flow. Build toward regulation.</h2></div><span className="lesson-count">5 prototype lessons</span></div>
-        {lessons.map((lesson, index) => <button className="lesson-row" key={lesson.id} onClick={() => navigate(`lesson/${lesson.id}`)}>
+        <div className="lesson-list-head"><div><p className="eyebrow">CARDIOVASCULAR SYSTEM</p><h2>Start with flow. Build toward regulation.</h2></div><span className="lesson-count">{lessons.length} prototype lessons</span></div>
+        {lessons.map((lesson, index) => <button className="lesson-row" key={lesson.id} onClick={() => navigate(lessonRoute('cardiovascular', lesson.id))}>
           <span className="lesson-index">{String(index+1).padStart(2,'0')}</span>
           <span className="lesson-main"><strong>{lesson.title}</strong><small>{lesson.kicker}</small></span>
           <span className="lesson-meta">{lesson.minutes} min <b>→</b></span>
