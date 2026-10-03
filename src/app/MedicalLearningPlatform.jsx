@@ -52,6 +52,13 @@ export default function MedicalLearningPlatform() {
   return <PageShell navigate={navigate}><HomePage navigate={navigate}/></PageShell>;
 }
 
+function AmberTheoryBrand({ navigate, footer = false }) {
+  return <button className={`brand amber-brand${footer ? ' amber-brand-footer' : ''}`} onClick={()=>navigate('home')} aria-label="AmberTheory Medical Learning Lab home">
+    <img className="amber-brand-mark" src="/amber-theory-mark.svg" alt="" aria-hidden="true"/>
+    <span className="amber-brand-copy"><strong>AmberTheory</strong><small>Medical Learning Lab</small></span>
+  </button>;
+}
+
 function PageShell({ children, navigate }) {
   const openLearningMap = () => {
     const scrollToMap = () => document.getElementById('years')?.scrollIntoView({behavior:'smooth'});
@@ -63,5 +70,5 @@ function PageShell({ children, navigate }) {
     window.setTimeout(scrollToMap, 80);
   };
 
-  return <div className="page-shell"><nav className="topnav"><button className="brand" onClick={()=>navigate('home')}><span className="brand-mark">AT</span><span><strong>Medical Learning Lab</strong><small>AmberTheory</small></span></button><div className="nav-links"><button onClick={()=>navigate('subject/physiology')}>Curriculum</button><button onClick={()=>navigate('therapeutic/diabetes')}>Therapeutic areas</button><button onClick={openLearningMap}>Learning map</button><span className="prototype-pill">Dual-path prototype</span></div></nav>{children}<footer><div><strong>Medical Learning Lab</strong><span>An AmberTheory exploration</span></div><p>Designed for learning exploration. Not for diagnosis, treatment or patient-specific medical advice.</p></footer></div>;
+  return <div className="page-shell"><nav className="topnav"><AmberTheoryBrand navigate={navigate}/><div className="nav-links"><button onClick={()=>navigate('subject/physiology')}>Curriculum</button><button onClick={()=>navigate('therapeutic/diabetes')}>Therapeutic areas</button><button onClick={openLearningMap}>Learning map</button><span className="prototype-pill">Dual-path prototype</span></div></nav>{children}<footer><AmberTheoryBrand navigate={navigate} footer/><p>Designed for learning exploration. Not for diagnosis, treatment or patient-specific medical advice.</p></footer></div>;
 }
