@@ -23,13 +23,28 @@ export default function HomePage({ navigate }) {
       <div>
         <p className="eyebrow">{platform.eyebrow}</p>
         <h1>Explore medical learning.</h1>
-        <p>Start with an available learning path, browse its lessons, or search directly for a concept. The prototype currently focuses on First Professional Physiology.</p>
+        <p>Choose the normal curriculum route by year and subject, or follow one therapeutic area across the different subjects in which MBBS students meet it.</p>
       </div>
-      <div className="ml-dashboard-status"><strong>1 open learning path</strong><span>{lessons.length} lessons · {totalMinutes} min</span><small>Faculty review required</small></div>
+      <div className="ml-dashboard-status"><strong>2 prototype learning views</strong><span>Curriculum-first + therapeutic-area</span><small>Faculty review required</small></div>
     </section>
 
-    <section className="ml-search-panel" aria-label="Search medical learning">
-      <label htmlFor="medical-course-search">Search courses and concepts</label>
+    <section className="ml-learning-modes" aria-label="Choose a medical learning view">
+      <article className="ml-mode-card curriculum">
+        <div className="ml-mode-number">01</div><p className="eyebrow">STUDY BY CURRICULUM</p><h2>Follow MBBS by year, subject and system.</h2>
+        <p>Use the familiar academic structure. The current prototype opens First Professional Physiology and Cardiovascular learning.</p>
+        <div className="ml-mode-path"><span>First Professional</span><b>→</b><span>Physiology</span><b>→</b><span>Cardiovascular</span></div>
+        <button className="primary" onClick={()=>navigate('subject/physiology')}>Open curriculum path →</button>
+      </article>
+      <article className="ml-mode-card therapeutic">
+        <div className="ml-mode-number">02</div><p className="eyebrow">FOLLOW A THERAPEUTIC AREA</p><h2>See one condition through the subjects that teach it.</h2>
+        <p>Keep the syllabus order, but connect the same therapeutic area across MBBS phases so earlier concepts remain visible when the disease becomes clinical.</p>
+        <div className="ml-mode-path"><span>Physiology</span><b>→</b><span>Pathology</span><b>→</b><span>Pharmacology</span><b>→</b><span>Medicine</span></div>
+        <button className="primary" onClick={()=>navigate('therapeutic/diabetes')}>Explore Diabetes through MBBS →</button>
+      </article>
+    </section>
+
+    <section className="ml-search-panel" aria-label="Search current curriculum prototype">
+      <label htmlFor="medical-course-search">Search the current Cardiovascular Physiology prototype</label>
       <div className="ml-search-row">
         <input id="medical-course-search" type="search" value={query} onChange={event=>setQuery(event.target.value)} placeholder="Try cardiac output, blood pressure or regulation…"/>
         {query && <button type="button" onClick={()=>setQuery('')}>Clear</button>}
@@ -38,7 +53,7 @@ export default function HomePage({ navigate }) {
     </section>
 
     {query && <section className="ml-search-results" aria-label="Matching lessons">
-      {results.length ? results.map((lesson,index)=><button key={lesson.id} className="ml-result-card" onClick={()=>navigate(lessonRoute('cardiovascular', lesson.id))}>
+      {results.length ? results.map(lesson=><button key={lesson.id} className="ml-result-card" onClick={()=>navigate(lessonRoute('cardiovascular', lesson.id))}>
         <span>{String(lessons.indexOf(lesson)+1).padStart(2,'0')}</span><div><strong>{lesson.title}</strong><small>Cardiovascular Physiology · {lesson.minutes} min</small><p>{lesson.kicker}</p></div><b>→</b>
       </button>) : <div className="ml-empty-state"><strong>No lessons match that search.</strong><span>Try a cardiovascular concept such as cardiac output or blood pressure.</span></div>}
     </section>}
@@ -48,11 +63,11 @@ export default function HomePage({ navigate }) {
         <div className="ml-course-card-meta"><span>FIRST PROFESSIONAL</span><span>PHYSIOLOGY</span><span>PROTOTYPE</span></div>
         <div className="ml-course-card-body">
           <div>
-            <p className="eyebrow">AVAILABLE NOW</p>
+            <p className="eyebrow">CURRICULUM PATH · AVAILABLE NOW</p>
             <h2>Cardiovascular Physiology</h2>
             <p>Learn flow, pumping, pressure and regulation as a connected physiological system rather than a list of isolated definitions.</p>
           </div>
-          <div className="ml-course-stats"><span><strong>{lessons.length}</strong> lessons</span><span><strong>{totalMinutes}</strong> min</span><span><strong>7-stage</strong> target experience</span></div>
+          <div className="ml-course-stats"><span><strong>{lessons.length}</strong> lessons</span><span><strong>{totalMinutes}</strong> min</span><span><strong>7-stage</strong> experience</span></div>
         </div>
         <div className="ml-course-preview">
           {lessons.map((lesson,index)=><button key={lesson.id} onClick={()=>navigate(lessonRoute('cardiovascular', lesson.id))}><span>{String(index+1).padStart(2,'0')}</span><strong>{lesson.title}</strong><small>{lesson.minutes} min</small></button>)}
@@ -60,11 +75,12 @@ export default function HomePage({ navigate }) {
         <div className="ml-course-actions"><button className="secondary" onClick={()=>navigate('subject/physiology')}>Browse course contents</button><button className="primary" onClick={()=>navigate(lessonRoute('cardiovascular', lessons[0].id))}>Start learning →</button></div>
       </article>
 
-      <aside className="ml-coming-card">
-        <p className="eyebrow">MAPPED FOR LATER</p>
-        <h3>More of First Professional</h3>
-        <p>The course-first shell is ready to expand without pretending unfinished subjects are available.</p>
-        <div>{subjects.filter(subject=>subject.status!=='available').map(subject=><span key={subject.id}><strong>{subject.title}</strong><small>Preview only</small></span>)}</div>
+      <aside className="ml-coming-card ml-therapeutic-preview">
+        <p className="eyebrow">THERAPEUTIC AREA · NEW PROTOTYPE</p>
+        <h3>Diabetes through MBBS</h3>
+        <p>Follow the same condition through Physiology, Biochemistry, Pathology, Pharmacology, Community Medicine, Ophthalmology, General Medicine, OBG and Paediatrics.</p>
+        <div><span><strong>4 curriculum phases</strong><small>Kept in MBBS teaching order</small></span><span><strong>9 subject lenses</strong><small>Foundation → disease → treatment → clinical integration</small></span></div>
+        <button className="secondary" onClick={()=>navigate('therapeutic/diabetes')}>Open Diabetes map →</button>
       </aside>
     </section>}
 
