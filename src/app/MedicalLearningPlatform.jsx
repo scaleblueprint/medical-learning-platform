@@ -6,7 +6,7 @@ import TherapeuticAreaPage from '../features/therapeutic/TherapeuticAreaPage.jsx
 import TherapeuticTopicPage from '../features/therapeutic/TherapeuticTopicPage.jsx';
 import DiabetesMiniTopicPage from '../features/therapeutic/DiabetesMiniTopicPage.jsx';
 
-const AMBERTHEORY_LOGO = 'https://raw.githubusercontent.com/scaleblueprint/form-and-wonder/main/public/ambertheory-lockup.jpg';
+const AMBERTHEORY_LOGO = '/ambertheory-lockup.jpg';
 
 function parseHash() {
   const raw = window.location.hash.replace(/^#\/?/, '') || 'home';
