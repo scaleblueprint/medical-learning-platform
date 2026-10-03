@@ -16,14 +16,12 @@
 html,body{background:var(--paper);color:var(--ink)}
 body{line-height:1.55}
 .topnav{height:88px;background:rgba(247,248,245,.96);border-color:var(--line)}
-.amber-brand{gap:13px;padding:0;border:0;background:none;color:var(--ink)}
-.amber-brand-mark{width:48px;height:48px;display:block;flex:none}
-.amber-brand-copy{display:grid;gap:2px;line-height:1.08}
-.amber-brand-copy strong{font-family:Georgia,"Times New Roman",serif;font-size:19px;font-weight:500;letter-spacing:-.02em;color:var(--ink)}
-.amber-brand-copy small{font-size:10px;font-weight:750;letter-spacing:.14em;text-transform:uppercase;color:var(--deep)}
-.amber-brand-footer .amber-brand-mark{width:40px;height:40px}
-.amber-brand-footer .amber-brand-copy strong{font-size:17px}
-.brand-mark{display:none}
+.amber-brand{gap:13px;padding:0;border:0;background:none;color:var(--ink);display:flex;align-items:center}
+.amber-brand-lockup{width:176px;height:52px;display:block;object-fit:contain;object-position:left center;border-radius:4px;flex:none}
+.amber-product-name{font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--deep);padding-left:12px;border-left:1px solid var(--line);white-space:nowrap}
+.amber-brand-footer .amber-brand-lockup{width:154px;height:46px}
+.amber-brand-footer .amber-product-name{font-size:9px}
+.brand-mark,.amber-brand-mark,.amber-brand-copy{display:none}
 
 .nav-links button{color:var(--ink)}
 .nav-links button:hover,.nav-links button:focus-visible{color:var(--deep)}
@@ -76,11 +74,14 @@ footer p{color:var(--muted)}
 
 :focus-visible{outline:3px solid rgba(45,95,122,.38);outline-offset:3px}
 
+@media(max-width:920px){
+  .amber-brand-lockup{width:148px;height:46px}
+  .amber-product-name{display:none}
+}
+
 @media(max-width:760px){
   .topnav{height:auto;min-height:78px;padding-top:10px;padding-bottom:10px;gap:14px;align-items:flex-start}
-  .amber-brand-mark{width:42px;height:42px}
-  .amber-brand-copy strong{font-size:17px}
-  .amber-brand-copy small{font-size:9px}
+  .amber-brand-lockup{width:132px;height:42px}
   .nav-links{gap:10px;flex-wrap:wrap;justify-content:flex-end}
   .prototype-pill{display:none}
   footer{align-items:flex-start}
