@@ -1,0 +1,87 @@
+:root{
+  --ink:#172321;
+  --muted:#5b6b68;
+  --paper:#f7f8f5;
+  --cream:#eaf1ef;
+  --white:#fcfdfb;
+  --sage:#b9ccc5;
+  --deep:#1f5e63;
+  --blue:#2d5f7a;
+  --rust:#9c4e28;
+  --gold:#a86b22;
+  --line:rgba(23,35,33,.14);
+  --shadow:0 20px 48px rgba(23,35,33,.08);
+}
+
+html,body{background:var(--paper);color:var(--ink)}
+body{line-height:1.55}
+.topnav{height:88px;background:rgba(247,248,245,.96);border-color:var(--line)}
+.amber-brand{gap:13px;padding:0;border:0;background:none;color:var(--ink)}
+.amber-brand-mark{width:48px;height:48px;display:block;flex:none}
+.amber-brand-copy{display:grid;gap:2px;line-height:1.08}
+.amber-brand-copy strong{font-family:Georgia,"Times New Roman",serif;font-size:19px;font-weight:500;letter-spacing:-.02em;color:var(--ink)}
+.amber-brand-copy small{font-size:10px;font-weight:750;letter-spacing:.14em;text-transform:uppercase;color:var(--deep)}
+.amber-brand-footer .amber-brand-mark{width:40px;height:40px}
+.amber-brand-footer .amber-brand-copy strong{font-size:17px}
+.brand-mark{display:none}
+
+.nav-links button{color:var(--ink)}
+.nav-links button:hover,.nav-links button:focus-visible{color:var(--deep)}
+.prototype-pill{background:#eef4f2;border-color:rgba(31,94,99,.24);color:var(--deep)}
+
+.primary{background:var(--deep);border-color:var(--deep);color:#fff}
+.primary:hover,.primary:focus-visible{background:#174d51;border-color:#174d51}
+.secondary{border-color:rgba(31,94,99,.5);color:var(--deep);background:transparent}
+.secondary:hover,.secondary:focus-visible{background:#eef4f2}
+
+.eyebrow,.stage-tag,.aside-label{color:var(--deep)}
+.hero h1 em,.stage-num,.year-number,.lesson-index{color:var(--rust)}
+.learning-stage blockquote{border-left-color:var(--gold);background:#f0f4f1}
+.review-banner{border-left-color:var(--rust);background:#f3f6f3}
+.subjects-block,.lesson-sidebar,.source-card{background:#edf2ef}
+.subject-short,.connect-grid span{background:#e4efeb;color:var(--deep)}
+.lesson-page{background:var(--paper)}
+.lesson-content,.ml-lesson-content{background:var(--white)}
+.lesson-topbar{background:rgba(252,253,251,.97)}
+.choice-grid button{background:#fff}
+.choice-grid button.chosen{background:#f5e9e2;border-color:#b96c49}
+.choice-grid button.correct{background:#e7f0eb;border-color:#739780}
+.reveal{background:#eef3f0}
+
+.ml-mode-card{background:var(--white)}
+.ml-mode-card.therapeutic{background:#173f42;color:#fff}
+.ml-mode-card.therapeutic p{color:#d7e4df}
+.ml-mode-card.therapeutic .eyebrow{color:#c3d9d1}
+.ml-mode-card.therapeutic>.primary{background:#fff;color:#173f42;border-color:#fff}
+.ml-mode-number{color:rgba(156,78,40,.22)}
+.ml-mode-card.therapeutic .ml-mode-number{color:rgba(255,255,255,.12)}
+
+.ta-mode-explainer,.ta-analogy-block aside,.ta-flow-step{background:#eef3f0}
+.ta-topic-card,.ta-topic-route-context div,.ta-analogy-block>div,.ta-topic-nav button{background:var(--white)}
+.ta-topic-card.core{border-top-color:var(--deep)}
+.ta-topic-card.foundation{border-top-color:var(--gold)}
+.ta-topic-card.integrated{border-top-color:var(--blue)}
+.ta-memory-block{background:#173f42}
+.ta-memory-block .stage-tag{color:#c3d9d1}
+.ta-phase-marker>span,.ta-flow-step>span,.ta-thread-map b{color:var(--rust)}
+
+.ddl-shell,.ddl-panel,.ddl-term-card,.ddl-mechanism-card,.ddl-mini-link{background:var(--white)}
+.ddl-diagram,.ddl-recap,.ddl-more{background:#eef3f0}
+
+footer{background:#f1f4f1;align-items:center}
+footer p{color:var(--muted)}
+
+/* Diagram semantics: color helps, but labels and shapes must continue to carry meaning. */
+.cv-explorer,.visual-memory,.ta-flow-block,.ddl-diagram{--diagram-primary:#1f5e63;--diagram-secondary:#2d5f7a;--diagram-accent:#9c4e28;--diagram-soft:#dfe9e5}
+
+:focus-visible{outline:3px solid rgba(45,95,122,.38);outline-offset:3px}
+
+@media(max-width:760px){
+  .topnav{height:auto;min-height:78px;padding-top:10px;padding-bottom:10px;gap:14px;align-items:flex-start}
+  .amber-brand-mark{width:42px;height:42px}
+  .amber-brand-copy strong{font-size:17px}
+  .amber-brand-copy small{font-size:9px}
+  .nav-links{gap:10px;flex-wrap:wrap;justify-content:flex-end}
+  .prototype-pill{display:none}
+  footer{align-items:flex-start}
+}
