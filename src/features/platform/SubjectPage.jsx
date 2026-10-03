@@ -8,8 +8,6 @@ export default function SubjectPage({ id, navigate }) {
   if (!subject) return null;
   const totalMinutes = lessons.reduce((sum, lesson)=>sum+(lesson.minutes||0),0);
   return <div className="subject-page ml-subject-course">
-    <button className="back-link" onClick={() => navigate('home')}>← Medical Learning Lab</button>
-
     <header className="ml-subject-header">
       <div>
         <p className="eyebrow">FIRST PROFESSIONAL · {subject.short}</p>
