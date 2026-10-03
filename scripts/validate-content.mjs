@@ -1,4 +1,5 @@
 import { cardiovascularLessons } from '../src/data/lessons/cardiovascular.js';
+import { cardiovascularExplorerRegistry, getCardiovascularExplorer } from '../src/data/learning/explorerRegistry.js';
 import { getLessonNavigation, lessonRoute } from '../src/platform/catalog/learningNavigation.js';
 
 const errors = [];
@@ -9,6 +10,7 @@ for (const lesson of cardiovascularLessons) {
   for (const key of ['experience','predict','understand','connect','apply','check']) {
     if (!lesson.stages?.[key]) errors.push(`${lesson.id}: missing stage ${key}`);
   }
+  if (!getCardiovascularExplorer(lesson.id)) errors.push(`${lesson.id}: missing concept-specific Explore stage`);
   if (lesson.review !== 'faculty-review-required') errors.push(`${lesson.id}: prototype lesson must require faculty review`);
 
   const study = lesson.study;
@@ -26,6 +28,10 @@ for (const lesson of cardiovascularLessons) {
   }
 }
 if (cardiovascularLessons.length !== 5) errors.push(`Expected 5 prototype cardiovascular lessons, found ${cardiovascularLessons.length}`);
+if (Object.keys(cardiovascularExplorerRegistry).length !== cardiovascularLessons.length) errors.push('Explorer registry must cover exactly the current cardiovascular lesson set');
+for (const lessonId of Object.keys(cardiovascularExplorerRegistry)) {
+  if (!ids.has(lessonId)) errors.push(`Explorer registry contains unknown lesson: ${lessonId}`);
+}
 
 const routes = new Set();
 for (let index = 0; index < cardiovascularLessons.length; index += 1) {
@@ -45,4 +51,4 @@ const invalid = getLessonNavigation('cardiovascular', 'not-a-real-lesson');
 if (invalid.current !== null) errors.push('Invalid lesson must not silently resolve to another lesson');
 
 if (errors.length) { console.error(errors.join('\n')); process.exit(1); }
-console.log(`Content validation passed: ${cardiovascularLessons.length} lessons with study depth, review flags, scoped routes and ordered navigation.`);
+console.log(`Content validation passed: ${cardiovascularLessons.length} seven-stage lessons with concept explorers, study depth, review flags, scoped routes and ordered navigation.`);
