@@ -1,4 +1,5 @@
 import { diabetesTherapeuticArea, diabetesTopics, getDiabetesTopic } from '../../data/therapeuticAreas/diabetes.js';
+import DiabetesDeepLearning from './DiabetesDeepLearning.jsx';
 
 export default function TherapeuticTopicPage({ areaId, topicId, navigate }) {
   if (areaId !== 'diabetes') return null;
@@ -35,6 +36,8 @@ export default function TherapeuticTopicPage({ areaId, topicId, navigate }) {
       <div><span className="stage-tag">ANALOGY</span><h2>{topic.analogy.title}</h2><p>{topic.analogy.simple}</p></div>
       <div><span className="stage-tag">MEDICAL MAPPING</span><p>{topic.analogy.medical}</p><aside><strong>Where the analogy stops</strong><span>{topic.analogy.limit}</span></aside></div>
     </section>
+
+    <DiabetesDeepLearning topicId={topic.id} navigate={navigate}/>
 
     <section className="ta-memory-block"><span className="stage-tag">MEMORY ANCHOR</span><h2>{topic.remember}</h2><p>Use this as a recall cue, then rebuild the full mechanism from the subject concepts above.</p></section>
 
