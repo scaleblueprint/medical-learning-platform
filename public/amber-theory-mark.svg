@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-labelledby="title desc">
+<title id="title">AmberTheory layered lens mark</title>
+<desc id="desc">Layered amber forms create a lens with a subtle T in the negative space.</desc>
+<defs>
+<linearGradient id="a" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#F2B25F"/><stop offset="1" stop-color="#B24F18"/></linearGradient>
+<linearGradient id="b" x1="1" y1="0" x2="0" y2="1"><stop stop-color="#D96F24"/><stop offset="1" stop-color="#552514"/></linearGradient>
+<linearGradient id="c" x1="0" y1="1" x2="1" y2="0"><stop stop-color="#F4C88C"/><stop offset="1" stop-color="#8C3E18"/></linearGradient>
+<filter id="soft"><feGaussianBlur stdDeviation="1.35"/></filter>
+</defs>
+<path d="M60 8C79 8 98 31 98 51c0 13-8 25-19 35-8 7-14 13-19 24-5-11-11-17-19-24C30 76 22 64 22 51 22 31 41 8 60 8Z" fill="url(#a)" opacity=".92"/>
+<path d="M20 49C29 31 51 25 68 30c18 5 29 21 31 38 2 15-5 28-18 35-13 7-29 5-42-3C21 89 12 66 20 49Z" fill="url(#c)" opacity=".82"/>
+<path d="M100 48C91 31 71 25 54 30 37 35 26 51 23 68c-2 15 6 28 19 35 13 7 29 5 42-3 18-11 25-35 16-52Z" fill="url(#b)" opacity=".78"/>
+<path d="M38 47c8-8 36-8 44 0-8 5-13 10-15 17-2 7-2 18-7 29-5-11-5-22-7-29-2-7-7-12-15-17Z" fill="#F8EAD7" opacity=".88" filter="url(#soft)"/>
+</svg>
