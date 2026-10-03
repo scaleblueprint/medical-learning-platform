@@ -1,9 +1,11 @@
 import { cardiovascularLessons } from '../src/data/lessons/cardiovascular.js';
 import { cardiovascularExplorerRegistry, getCardiovascularExplorer } from '../src/data/learning/explorerRegistry.js';
+import { cardiovascularVisualMemory, getCardiovascularVisualMemory } from '../src/data/learning/visualMemoryRegistry.js';
 import { getLessonNavigation, lessonRoute } from '../src/platform/catalog/learningNavigation.js';
 
 const errors = [];
 const ids = new Set();
+const allowedDiagrams = new Set(['circulation-loop','cycle-wheel','output-equation','pressure-pipe','feedback-loop']);
 for (const lesson of cardiovascularLessons) {
   if (!lesson.id || ids.has(lesson.id)) errors.push(`Invalid or duplicate lesson id: ${lesson.id}`);
   ids.add(lesson.id);
@@ -26,11 +28,27 @@ for (const lesson of cardiovascularLessons) {
   for (const source of study?.sources || []) {
     if (!source.label || !/^https:\/\//.test(source.url || '')) errors.push(`${lesson.id}: invalid study reference source`);
   }
+
+  const visual = getCardiovascularVisualMemory(lesson.id);
+  if (!visual) errors.push(`${lesson.id}: missing visual-memory layer`);
+  if (visual && !allowedDiagrams.has(visual.diagram)) errors.push(`${lesson.id}: unsupported visual diagram ${visual.diagram}`);
+  for (const key of ['title','subtitle']) if (!visual?.[key]) errors.push(`${lesson.id}: visual.${key} is required`);
+  for (const key of ['title','everyday','medical','limit']) if (!visual?.analogy?.[key]) errors.push(`${lesson.id}: visual.analogy.${key} is required`);
+  if (!visual?.memory?.rule || (visual?.memory?.cues?.length || 0) < 3) errors.push(`${lesson.id}: visual memory anchor requires a rule and at least 3 cues`);
+  if (!visual?.redraw?.title || (visual?.redraw?.steps?.length || 0) < 3) errors.push(`${lesson.id}: redraw exercise requires at least 3 steps`);
+  if ((visual?.viva?.length || 0) < 2) errors.push(`${lesson.id}: visual viva requires at least 2 quick-answer prompts`);
+  for (const item of visual?.viva || []) {
+    if (!item.question || !item.oneLine || (item.buildOut?.length || 0) < 2) errors.push(`${lesson.id}: each visual viva item needs a question, one-line answer and build-out points`);
+  }
 }
 if (cardiovascularLessons.length !== 5) errors.push(`Expected 5 prototype cardiovascular lessons, found ${cardiovascularLessons.length}`);
 if (Object.keys(cardiovascularExplorerRegistry).length !== cardiovascularLessons.length) errors.push('Explorer registry must cover exactly the current cardiovascular lesson set');
 for (const lessonId of Object.keys(cardiovascularExplorerRegistry)) {
   if (!ids.has(lessonId)) errors.push(`Explorer registry contains unknown lesson: ${lessonId}`);
+}
+if (Object.keys(cardiovascularVisualMemory).length !== cardiovascularLessons.length) errors.push('Visual memory registry must cover exactly the current cardiovascular lesson set');
+for (const lessonId of Object.keys(cardiovascularVisualMemory)) {
+  if (!ids.has(lessonId)) errors.push(`Visual memory registry contains unknown lesson: ${lessonId}`);
 }
 
 const routes = new Set();
@@ -51,4 +69,4 @@ const invalid = getLessonNavigation('cardiovascular', 'not-a-real-lesson');
 if (invalid.current !== null) errors.push('Invalid lesson must not silently resolve to another lesson');
 
 if (errors.length) { console.error(errors.join('\n')); process.exit(1); }
-console.log(`Content validation passed: ${cardiovascularLessons.length} seven-stage lessons with concept explorers, study depth, review flags, scoped routes and ordered navigation.`);
+console.log(`Content validation passed: ${cardiovascularLessons.length} seven-stage lessons with concept explorers, visual-memory maps, study depth, review flags, scoped routes and ordered navigation.`);
