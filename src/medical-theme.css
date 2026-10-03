@@ -53,6 +53,12 @@ body{line-height:1.55}
 .choice-grid button.correct{background:#e8eee7;border-color:#7f9686}
 .reveal{background:#f1e6d9}
 
+/* The course title should become visible immediately after navigation, not after a large hero gap. */
+.ml-subject-course{padding-top:22px}
+.ml-subject-header{padding-top:26px!important;padding-bottom:34px!important}
+.ml-subject-header h1{margin-top:8px;margin-bottom:16px}
+.ml-subject-course>.review-banner{margin-top:0}
+
 .ml-mode-card{background:var(--white)}
 .ml-mode-card.therapeutic{background:#2a211d;color:#fffaf4}
 .ml-mode-card.therapeutic p{color:#e6d9cd}
@@ -102,6 +108,10 @@ footer .amber-product-name{color:#e2b17d;border-left-color:rgba(255,250,244,.22)
   .mobile-bottom-nav button span{display:block;font-size:10px;font-weight:750;letter-spacing:.02em;line-height:1.15;white-space:normal}
   .mobile-bottom-nav button.active{background:rgba(207,148,82,.18);color:#ffd7ad}
   .mobile-bottom-nav button:focus-visible{outline-color:rgba(239,198,155,.65)}
+
+  .ml-subject-course{padding-top:14px}
+  .ml-subject-header{padding-top:14px!important;padding-bottom:24px!important}
+  .ml-subject-header h1{margin-top:5px;margin-bottom:12px}
 
   footer{align-items:flex-start}
 }
