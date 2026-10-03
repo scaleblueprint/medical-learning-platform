@@ -39,6 +39,25 @@ The lessons also include an expandable study-depth layer with objectives, prereq
 
 Release validation requires every cardiovascular lesson to have a registered concept-specific explorer and rejects registry/lesson drift.
 
+## Phase 2B — visual memory and recall layer — COMPLETE FOR CARDIOVASCULAR PROTOTYPE
+Each cardiovascular lesson now adds a reusable visual-learning layer after Explore/Understand and before the deeper study material:
+- one original simplified concept diagram;
+- an everyday analogy with explicit medical mapping;
+- an explicit statement of where the analogy stops;
+- a compact memory anchor with a small set of cues;
+- a 20-second redraw-from-memory exercise;
+- common-confusion corrections surfaced from the deeper lesson content;
+- viva quick-answer cards that start with a one-line answer and expand to supporting points.
+
+Current original concept diagrams:
+- Heart as a pump — Body → Right heart → Lungs → Left heart → Body circulation loop.
+- Cardiac cycle — four-state Fill → Isovolumetric contraction → Eject → Isovolumetric relaxation wheel.
+- Cardiac output — HR × SV = CO with preload/contractility/afterload linked beneath stroke volume.
+- Blood pressure — pump → pressure → adjustable arteriolar resistance relationship.
+- BP regulation — Pressure → baroreceptors → brainstem → heart/vessels → correction feedback loop.
+
+The shared requirements are documented in `MEDICAL-VISUAL-LEARNING-STANDARD.md`. Release validation requires visual-memory coverage for every cardiovascular lesson and rejects incomplete analogy, memory, redraw or viva records.
+
 ## Phase 3 — course-first discovery — PARTIALLY COMPLETE
 - Compact MBBS/subject dashboard. — implemented for the current prototype.
 - Open available learning experiences directly. — implemented.
