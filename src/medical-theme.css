@@ -1,78 +1,83 @@
 :root{
-  --ink:#172321;
-  --muted:#5b6b68;
-  --paper:#f7f8f5;
-  --cream:#eaf1ef;
-  --white:#fcfdfb;
-  --sage:#b9ccc5;
-  --deep:#1f5e63;
-  --blue:#2d5f7a;
-  --rust:#9c4e28;
-  --gold:#a86b22;
-  --line:rgba(23,35,33,.14);
-  --shadow:0 20px 48px rgba(23,35,33,.08);
+  /* AmberTheory brand-led medical palette: warm, calm, high-contrast. */
+  --ink:#211b18;
+  --muted:#74685f;
+  --paper:#f7f1e8;
+  --cream:#efe2d3;
+  --white:#fffaf4;
+  --sage:#a7aaa2;
+  --deep:#7b4a2d;
+  --blue:#60767a;
+  --rust:#b86f43;
+  --gold:#cf9452;
+  --charcoal:#181716;
+  --line:rgba(57,39,29,.15);
+  --shadow:0 20px 48px rgba(64,42,28,.10);
 }
 
 html,body{background:var(--paper);color:var(--ink)}
 body{line-height:1.55}
-.topnav{height:88px;background:rgba(247,248,245,.96);border-color:var(--line)}
-.amber-brand{gap:13px;padding:0;border:0;background:none;color:var(--ink);display:flex;align-items:center}
+
+/* The dark header intentionally matches the JPEG lockup background so the brand feels integrated. */
+.topnav{height:88px;background:rgba(24,23,22,.98);border-color:rgba(255,250,244,.12)}
+.amber-brand{gap:13px;padding:0;border:0;background:none;color:var(--white);display:flex;align-items:center}
 .amber-brand-lockup{width:176px;height:52px;display:block;object-fit:contain;object-position:left center;border-radius:4px;flex:none}
-.amber-product-name{font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--deep);padding-left:12px;border-left:1px solid var(--line);white-space:nowrap}
+.amber-product-name{font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#e2b17d;padding-left:12px;border-left:1px solid rgba(255,250,244,.22);white-space:nowrap}
 .amber-brand-footer .amber-brand-lockup{width:154px;height:46px}
 .amber-brand-footer .amber-product-name{font-size:9px}
 .brand-mark,.amber-brand-mark,.amber-brand-copy{display:none}
 
-.nav-links button{color:var(--ink)}
-.nav-links button:hover,.nav-links button:focus-visible{color:var(--deep)}
-.prototype-pill{background:#eef4f2;border-color:rgba(31,94,99,.24);color:var(--deep)}
+.nav-links button{color:#f3e9de}
+.nav-links button:hover,.nav-links button:focus-visible{color:#e2a66e}
+.prototype-pill{background:rgba(207,148,82,.12);border-color:rgba(226,166,110,.42);color:#efc69b}
 
-.primary{background:var(--deep);border-color:var(--deep);color:#fff}
-.primary:hover,.primary:focus-visible{background:#174d51;border-color:#174d51}
-.secondary{border-color:rgba(31,94,99,.5);color:var(--deep);background:transparent}
-.secondary:hover,.secondary:focus-visible{background:#eef4f2}
+.primary{background:var(--charcoal);border-color:var(--charcoal);color:#fffaf4}
+.primary:hover,.primary:focus-visible{background:var(--deep);border-color:var(--deep)}
+.secondary{border-color:rgba(123,74,45,.55);color:var(--deep);background:transparent}
+.secondary:hover,.secondary:focus-visible{background:#f0e3d5}
 
 .eyebrow,.stage-tag,.aside-label{color:var(--deep)}
 .hero h1 em,.stage-num,.year-number,.lesson-index{color:var(--rust)}
-.learning-stage blockquote{border-left-color:var(--gold);background:#f0f4f1}
-.review-banner{border-left-color:var(--rust);background:#f3f6f3}
-.subjects-block,.lesson-sidebar,.source-card{background:#edf2ef}
-.subject-short,.connect-grid span{background:#e4efeb;color:var(--deep)}
+.learning-stage blockquote{border-left-color:var(--gold);background:#f2e7da}
+.review-banner{border-left-color:var(--rust);background:#f4e9de}
+.subjects-block,.lesson-sidebar,.source-card{background:#efe4d7}
+.subject-short,.connect-grid span{background:#ead7c4;color:var(--deep)}
 .lesson-page{background:var(--paper)}
 .lesson-content,.ml-lesson-content{background:var(--white)}
-.lesson-topbar{background:rgba(252,253,251,.97)}
-.choice-grid button{background:#fff}
-.choice-grid button.chosen{background:#f5e9e2;border-color:#b96c49}
-.choice-grid button.correct{background:#e7f0eb;border-color:#739780}
-.reveal{background:#eef3f0}
+.lesson-topbar{background:rgba(255,250,244,.97)}
+.choice-grid button{background:#fffaf4}
+.choice-grid button.chosen{background:#f4dfd2;border-color:#bd7954}
+.choice-grid button.correct{background:#e8eee7;border-color:#7f9686}
+.reveal{background:#f1e6d9}
 
 .ml-mode-card{background:var(--white)}
-.ml-mode-card.therapeutic{background:#173f42;color:#fff}
-.ml-mode-card.therapeutic p{color:#d7e4df}
-.ml-mode-card.therapeutic .eyebrow{color:#c3d9d1}
-.ml-mode-card.therapeutic>.primary{background:#fff;color:#173f42;border-color:#fff}
-.ml-mode-number{color:rgba(156,78,40,.22)}
-.ml-mode-card.therapeutic .ml-mode-number{color:rgba(255,255,255,.12)}
+.ml-mode-card.therapeutic{background:#2a211d;color:#fffaf4}
+.ml-mode-card.therapeutic p{color:#e6d9cd}
+.ml-mode-card.therapeutic .eyebrow{color:#e9b984}
+.ml-mode-card.therapeutic>.primary{background:#fffaf4;color:#2a211d;border-color:#fffaf4}
+.ml-mode-number{color:rgba(184,111,67,.22)}
+.ml-mode-card.therapeutic .ml-mode-number{color:rgba(255,255,255,.10)}
 
-.ta-mode-explainer,.ta-analogy-block aside,.ta-flow-step{background:#eef3f0}
+.ta-mode-explainer,.ta-analogy-block aside,.ta-flow-step{background:#f1e6d9}
 .ta-topic-card,.ta-topic-route-context div,.ta-analogy-block>div,.ta-topic-nav button{background:var(--white)}
 .ta-topic-card.core{border-top-color:var(--deep)}
 .ta-topic-card.foundation{border-top-color:var(--gold)}
 .ta-topic-card.integrated{border-top-color:var(--blue)}
-.ta-memory-block{background:#173f42}
-.ta-memory-block .stage-tag{color:#c3d9d1}
+.ta-memory-block{background:#2a211d}
+.ta-memory-block .stage-tag{color:#e9b984}
 .ta-phase-marker>span,.ta-flow-step>span,.ta-thread-map b{color:var(--rust)}
 
 .ddl-shell,.ddl-panel,.ddl-term-card,.ddl-mechanism-card,.ddl-mini-link{background:var(--white)}
-.ddl-diagram,.ddl-recap,.ddl-more{background:#eef3f0}
+.ddl-diagram,.ddl-recap,.ddl-more{background:#f1e6d9}
 
-footer{background:#f1f4f1;align-items:center}
-footer p{color:var(--muted)}
+footer{background:var(--charcoal);align-items:center;border-top-color:rgba(255,250,244,.12)}
+footer p{color:#cbbcaf}
+footer .amber-product-name{color:#e2b17d;border-left-color:rgba(255,250,244,.22)}
 
-/* Diagram semantics: color helps, but labels and shapes must continue to carry meaning. */
-.cv-explorer,.visual-memory,.ta-flow-block,.ddl-diagram{--diagram-primary:#1f5e63;--diagram-secondary:#2d5f7a;--diagram-accent:#9c4e28;--diagram-soft:#dfe9e5}
+/* Medical diagrams keep one restrained cool secondary hue for differentiation, while the UI stays brand-led. */
+.cv-explorer,.visual-memory,.ta-flow-block,.ddl-diagram{--diagram-primary:#7b4a2d;--diagram-secondary:#60767a;--diagram-accent:#b86f43;--diagram-soft:#eadbca}
 
-:focus-visible{outline:3px solid rgba(45,95,122,.38);outline-offset:3px}
+:focus-visible{outline:3px solid rgba(207,148,82,.48);outline-offset:3px}
 
 @media(max-width:920px){
   .amber-brand-lockup{width:148px;height:46px}
