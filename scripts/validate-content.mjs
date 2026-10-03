@@ -2,6 +2,7 @@ import { cardiovascularLessons } from '../src/data/lessons/cardiovascular.js';
 import { cardiovascularExplorerRegistry, getCardiovascularExplorer } from '../src/data/learning/explorerRegistry.js';
 import { cardiovascularVisualMemory, getCardiovascularVisualMemory } from '../src/data/learning/visualMemoryRegistry.js';
 import { diabetesTherapeuticArea, diabetesTopics, getDiabetesTopic } from '../src/data/therapeuticAreas/diabetes.js';
+import { diabetesDeepLearning, diabetesMiniTopics, getDiabetesDeepLearning, getDiabetesMiniTopic } from '../src/data/therapeuticAreas/diabetesDeepLearning.js';
 import { getLessonNavigation, lessonRoute } from '../src/platform/catalog/learningNavigation.js';
 
 const errors = [];
@@ -94,5 +95,30 @@ for (let index=0; index<diabetesTopics.length; index+=1) {
 }
 if (getDiabetesTopic('diabetes-pharmacology')?.verifiedCompetency !== 'PH7.1') errors.push('Verified Pharmacology competency PH7.1 must remain explicit');
 
+// Deep-learning layer: first four diabetes syllabus lenses must support beginner explanations without cluttering the core map.
+const requiredDeepTopics = ['glucose-homeostasis','glucose-metabolism','diabetes-pathology','diabetes-pharmacology'];
+for (const topicId of requiredDeepTopics) {
+  const deep = getDiabetesDeepLearning(topicId);
+  if (!deep) { errors.push(`${topicId}: missing diabetes deep-learning layer`); continue; }
+  if (!deep.beginnerIntro || !deep.diagram) errors.push(`${topicId}: deep-learning intro and diagram are required`);
+  if ((deep.keyTakeaways?.length || 0) < 4) errors.push(`${topicId}: deep learning requires at least 4 key takeaways`);
+  if ((deep.terms?.length || 0) < 4) errors.push(`${topicId}: deep learning requires at least 4 first-timer terms`);
+  for (const term of deep.terms || []) if (!term.term || !term.plain || !term.medical) errors.push(`${topicId}: every term requires name, plain explanation and medical definition`);
+  if ((deep.mechanisms?.length || 0) < 3) errors.push(`${topicId}: deep learning requires at least 3 mechanism sections`);
+  if ((deep.recaps?.length || 0) < 1) errors.push(`${topicId}: at least one recap mini-topic is required`);
+  if ((deep.learnMore?.length || 0) < 1) errors.push(`${topicId}: at least one learn-more mini-topic is required`);
+  if ((deep.sources?.length || 0) < 2) errors.push(`${topicId}: deep learning requires at least two learning sources`);
+  for (const source of deep.sources || []) if (!source.label || !/^https:\/\//.test(source.url || '')) errors.push(`${topicId}: invalid deep-learning source`);
+  for (const miniId of [...(deep.recaps || []), ...(deep.learnMore || [])]) if (!getDiabetesMiniTopic(miniId)) errors.push(`${topicId}: linked mini-topic does not exist: ${miniId}`);
+}
+for (const [miniId, mini] of Object.entries(diabetesMiniTopics)) {
+  if (!mini.title || !mini.subtitle || !mini.plain || !mini.diagram || !mini.remember) errors.push(`${miniId}: incomplete diabetes mini-topic`);
+  if ((mini.parentSubjects?.length || 0) < 1) errors.push(`${miniId}: mini-topic requires at least one parent subject`);
+  if ((mini.sections?.length || 0) < 3) errors.push(`${miniId}: mini-topic requires at least 3 explanation sections`);
+  if ((mini.terms?.length || 0) < 3) errors.push(`${miniId}: mini-topic requires at least 3 terms`);
+  if ((mini.sources?.length || 0) < 1) errors.push(`${miniId}: mini-topic requires at least one source`);
+}
+if (Object.keys(diabetesDeepLearning).length !== requiredDeepTopics.length) errors.push('Current deep-learning prototype should cover exactly the first four diabetes syllabus lenses');
+
 if (errors.length) { console.error(errors.join('\n')); process.exit(1); }
-console.log(`Content validation passed: ${cardiovascularLessons.length} seven-stage cardiovascular lessons and ${diabetesTopics.length} ordered diabetes therapeutic-area syllabus lenses.`);
+console.log(`Content validation passed: ${cardiovascularLessons.length} cardiovascular lessons, ${diabetesTopics.length} ordered diabetes syllabus lenses, ${requiredDeepTopics.length} deep-learning lenses and ${Object.keys(diabetesMiniTopics).length} linked diabetes mini-topics.`);
