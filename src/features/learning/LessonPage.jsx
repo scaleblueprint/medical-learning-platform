@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getLessonNavigation } from '../../platform/catalog/learningNavigation.js';
 import CardiacOutputModel from './CardiacOutputModel.jsx';
 import LearningSidebar from './LearningSidebar.jsx';
@@ -14,6 +14,16 @@ export default function LessonPage({ id, systemId = 'cardiovascular', navigate }
   const lesson = nav.current;
   const [showFeedback, setShowFeedback] = useState(false);
   const [feedbackSent, setFeedbackSent] = useState(false);
+
+  useEffect(() => {
+    if (!lesson) return;
+    const frame = requestAnimationFrame(() => {
+      const target = document.getElementById('lesson-main');
+      target?.focus({ preventScroll: true });
+      target?.scrollIntoView({ block: 'start' });
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [lesson?.id]);
 
   if (!lesson) return <div className="ml-not-found"><p className="eyebrow">LESSON NOT FOUND</p><h1>This lesson is not part of the selected learning path.</h1><button className="primary" onClick={()=>navigate('subject/physiology')}>Back to Physiology</button></div>;
 
