@@ -62,15 +62,41 @@ function AmberTheoryBrand({ navigate, footer = false }) {
 }
 
 function PageShell({ children, navigate }) {
+  const current = window.location.hash.replace(/^#\/?/, '') || 'home';
+  const onHome = current === 'home';
+  const inCurriculum = current.startsWith('subject/');
+  const inTherapeutic = current.startsWith('therapeutic/');
+
   const openLearningMap = () => {
-    const scrollToMap = () => document.getElementById('years')?.scrollIntoView({behavior:'smooth'});
-    if (window.location.hash.replace(/^#\/?/, '') === 'home') {
+    const scrollToMap = () => document.getElementById('years')?.scrollIntoView({behavior:'smooth', block:'start'});
+    if (onHome) {
       scrollToMap();
       return;
     }
     navigate('home');
-    window.setTimeout(scrollToMap, 80);
+    window.setTimeout(scrollToMap, 100);
   };
 
-  return <div className="page-shell"><nav className="topnav"><AmberTheoryBrand navigate={navigate}/><div className="nav-links"><button onClick={()=>navigate('subject/physiology')}>Curriculum</button><button onClick={()=>navigate('therapeutic/diabetes')}>Therapeutic areas</button><button onClick={openLearningMap}>Learning map</button><span className="prototype-pill">Dual-path prototype</span></div></nav>{children}<footer><AmberTheoryBrand navigate={navigate} footer/><p>Designed for learning exploration. Not for diagnosis, treatment or patient-specific medical advice.</p></footer></div>;
+  return <div className="page-shell">
+    <nav className="topnav" aria-label="Medical Learning Lab primary navigation">
+      <AmberTheoryBrand navigate={navigate}/>
+      <div className="nav-links nav-primary">
+        <button className={onHome ? 'active' : ''} onClick={()=>navigate('home')}>Home</button>
+        <button className={inCurriculum ? 'active' : ''} onClick={()=>navigate('subject/physiology')}>Learn by year</button>
+        <button className={inTherapeutic ? 'active' : ''} onClick={()=>navigate('therapeutic/diabetes')}>Learn by condition</button>
+        <button onClick={openLearningMap}>Learning map</button>
+      </div>
+    </nav>
+
+    {children}
+
+    <nav className="mobile-bottom-nav" aria-label="Medical Learning Lab mobile navigation">
+      <button className={onHome ? 'active' : ''} onClick={()=>navigate('home')}><span>Home</span></button>
+      <button className={inCurriculum ? 'active' : ''} onClick={()=>navigate('subject/physiology')}><span>By year</span></button>
+      <button className={inTherapeutic ? 'active' : ''} onClick={()=>navigate('therapeutic/diabetes')}><span>By condition</span></button>
+      <button onClick={openLearningMap}><span>Map</span></button>
+    </nav>
+
+    <footer><AmberTheoryBrand navigate={navigate} footer/><p>Designed for learning exploration. Not for diagnosis, treatment or patient-specific medical advice.</p></footer>
+  </div>;
 }
