@@ -5,6 +5,7 @@ import CardiovascularExplorer from './CardiovascularExplorer.jsx';
 import LearningSidebar from './LearningSidebar.jsx';
 import LessonNavigation from './LessonNavigation.jsx';
 import StudyDepth from './StudyDepth.jsx';
+import VisualMemory from './VisualMemory.jsx';
 
 function ChoiceBlock({ data, title='Make a prediction' }) {
   const [choice, setChoice] = useState(null);
@@ -62,6 +63,7 @@ export default function LessonPage({ id, systemId = 'cardiovascular', navigate }
           <section className="learning-stage"><div className="stage-num">03</div><div><span className="stage-tag">EXPLORE</span><h2>See the mechanism change.</h2><CardiovascularExplorer explorerId={explorerId}/></div></section>
           <section className="learning-stage"><div className="stage-num">04</div><div><span className="stage-tag">UNDERSTAND</span><h2>{lesson.stages.understand.heading}</h2><p>{lesson.stages.understand.body}</p></div></section>
 
+          <VisualMemory lesson={lesson}/>
           <StudyDepth study={lesson.study}/>
 
           <section className="learning-stage"><div className="stage-num">05</div><div><span className="stage-tag">CONNECT</span><h2>One concept, multiple subjects.</h2><div className="connect-grid">{lesson.stages.connect.map((x,i)=><div key={x}><span>{['A','P','B'][i] || '•'}</span>{x}</div>)}</div></div></section>
