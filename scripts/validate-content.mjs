@@ -1,6 +1,7 @@
 import { cardiovascularLessons } from '../src/data/lessons/cardiovascular.js';
 import { cardiovascularExplorerRegistry, getCardiovascularExplorer } from '../src/data/learning/explorerRegistry.js';
 import { cardiovascularVisualMemory, getCardiovascularVisualMemory } from '../src/data/learning/visualMemoryRegistry.js';
+import { diabetesTherapeuticArea, diabetesTopics, getDiabetesTopic } from '../src/data/therapeuticAreas/diabetes.js';
 import { getLessonNavigation, lessonRoute } from '../src/platform/catalog/learningNavigation.js';
 
 const errors = [];
@@ -68,5 +69,30 @@ for (let index = 0; index < cardiovascularLessons.length; index += 1) {
 const invalid = getLessonNavigation('cardiovascular', 'not-a-real-lesson');
 if (invalid.current !== null) errors.push('Invalid lesson must not silently resolve to another lesson');
 
+// Therapeutic-area prototype: keep syllabus placement explicit while connecting one condition vertically.
+if (diabetesTherapeuticArea.id !== 'diabetes') errors.push('Diabetes therapeutic area id must remain stable');
+if (diabetesTherapeuticArea.review !== 'faculty-review-required') errors.push('Diabetes therapeutic area must remain faculty-review-required');
+if (!/^https:\/\//.test(diabetesTherapeuticArea.sourceUrl || '')) errors.push('Diabetes therapeutic area requires an official curriculum source URL');
+const expectedPhaseOrder = ['phase-i','phase-ii','phase-iii-a','phase-iii-b'];
+if (diabetesTherapeuticArea.phases.length !== expectedPhaseOrder.length) errors.push('Diabetes prototype must cover all four current curriculum phase groupings');
+for (let i=0;i<expectedPhaseOrder.length;i+=1) {
+  if (diabetesTherapeuticArea.phases[i]?.id !== expectedPhaseOrder[i]) errors.push(`Diabetes phase order mismatch at position ${i+1}`);
+}
+if (diabetesTopics.length !== 9) errors.push(`Expected 9 diabetes subject lenses, found ${diabetesTopics.length}`);
+const diabetesIds = new Set();
+for (let index=0; index<diabetesTopics.length; index+=1) {
+  const topic = diabetesTopics[index];
+  if (!topic.id || diabetesIds.has(topic.id)) errors.push(`Invalid or duplicate diabetes topic id: ${topic.id}`);
+  diabetesIds.add(topic.id);
+  for (const key of ['subject','title','mapping','question','remember','phaseId','phaseLabel','yearLabel']) if (!topic[key]) errors.push(`${topic.id}: missing ${key}`);
+  if ((topic.concepts?.length || 0) < 3) errors.push(`${topic.id}: requires at least 3 subject concepts`);
+  if ((topic.flow?.length || 0) < 4) errors.push(`${topic.id}: requires at least 4 visual-flow steps`);
+  for (const key of ['title','simple','medical','limit']) if (!topic.analogy?.[key]) errors.push(`${topic.id}: analogy.${key} is required`);
+  const expectedNext = diabetesTopics[index+1]?.id || null;
+  if ((topic.next || null) !== expectedNext) errors.push(`${topic.id}: therapeutic-area next pointer is out of syllabus order`);
+  if (getDiabetesTopic(topic.id)?.id !== topic.id) errors.push(`${topic.id}: therapeutic-area lookup failed`);
+}
+if (getDiabetesTopic('diabetes-pharmacology')?.verifiedCompetency !== 'PH7.1') errors.push('Verified Pharmacology competency PH7.1 must remain explicit');
+
 if (errors.length) { console.error(errors.join('\n')); process.exit(1); }
-console.log(`Content validation passed: ${cardiovascularLessons.length} seven-stage lessons with concept explorers, visual-memory maps, study depth, review flags, scoped routes and ordered navigation.`);
+console.log(`Content validation passed: ${cardiovascularLessons.length} seven-stage cardiovascular lessons and ${diabetesTopics.length} ordered diabetes therapeutic-area syllabus lenses.`);
