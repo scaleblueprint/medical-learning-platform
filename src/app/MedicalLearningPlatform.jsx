@@ -29,5 +29,15 @@ export default function MedicalLearningPlatform() {
 }
 
 function PageShell({ children, navigate }) {
-  return <div className="page-shell"><nav className="topnav"><button className="brand" onClick={()=>navigate('home')}><span className="brand-mark">AT</span><span><strong>Medical Learning Lab</strong><small>AmberTheory</small></span></button><div className="nav-links"><button onClick={()=>navigate('subject/physiology')}>Physiology</button><button onClick={()=>document.getElementById('years')?.scrollIntoView({behavior:'smooth'})}>Learning map</button><span className="prototype-pill">Prototype</span></div></nav>{children}<footer><div><strong>Medical Learning Lab</strong><span>An AmberTheory exploration</span></div><p>Designed for learning exploration. Not for diagnosis, treatment or patient-specific medical advice.</p></footer></div>;
+  const openLearningMap = () => {
+    const scrollToMap = () => document.getElementById('years')?.scrollIntoView({behavior:'smooth'});
+    if (window.location.hash.replace(/^#\/?/, '') === 'home') {
+      scrollToMap();
+      return;
+    }
+    navigate('home');
+    window.setTimeout(scrollToMap, 80);
+  };
+
+  return <div className="page-shell"><nav className="topnav"><button className="brand" onClick={()=>navigate('home')}><span className="brand-mark">AT</span><span><strong>Medical Learning Lab</strong><small>AmberTheory</small></span></button><div className="nav-links"><button onClick={()=>navigate('subject/physiology')}>Physiology</button><button onClick={openLearningMap}>Learning map</button><span className="prototype-pill">Prototype</span></div></nav>{children}<footer><div><strong>Medical Learning Lab</strong><span>An AmberTheory exploration</span></div><p>Designed for learning exploration. Not for diagnosis, treatment or patient-specific medical advice.</p></footer></div>;
 }
