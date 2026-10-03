@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getLessonNavigation } from '../../platform/catalog/learningNavigation.js';
-import CardiacOutputModel from './CardiacOutputModel.jsx';
+import { getCardiovascularExplorer } from '../../data/learning/explorerRegistry.js';
+import CardiovascularExplorer from './CardiovascularExplorer.jsx';
 import LearningSidebar from './LearningSidebar.jsx';
 import LessonNavigation from './LessonNavigation.jsx';
 import StudyDepth from './StudyDepth.jsx';
@@ -13,6 +14,7 @@ function ChoiceBlock({ data, title='Make a prediction' }) {
 export default function LessonPage({ id, systemId = 'cardiovascular', navigate }) {
   const nav = getLessonNavigation(systemId, id);
   const lesson = nav.current;
+  const explorerId = lesson ? getCardiovascularExplorer(lesson.id) : null;
   const [showFeedback, setShowFeedback] = useState(false);
   const [feedbackSent, setFeedbackSent] = useState(false);
 
@@ -57,14 +59,14 @@ export default function LessonPage({ id, systemId = 'cardiovascular', navigate }
 
           <section className="learning-stage"><div className="stage-num">01</div><div><span className="stage-tag">EXPERIENCE IT</span><h2>{lesson.stages.experience.title}</h2><p>{lesson.stages.experience.body}</p><blockquote>{lesson.stages.experience.prompt}</blockquote></div></section>
           <section className="learning-stage"><div className="stage-num">02</div><div><span className="stage-tag">PREDICT</span><ChoiceBlock data={lesson.stages.predict}/></div></section>
-          {lesson.interactive === 'cardiac-output' && <section className="learning-stage"><div className="stage-num">03</div><div><span className="stage-tag">EXPLORE</span><CardiacOutputModel/></div></section>}
-          <section className="learning-stage"><div className="stage-num">{lesson.interactive ? '04':'03'}</div><div><span className="stage-tag">UNDERSTAND</span><h2>{lesson.stages.understand.heading}</h2><p>{lesson.stages.understand.body}</p></div></section>
+          <section className="learning-stage"><div className="stage-num">03</div><div><span className="stage-tag">EXPLORE</span><h2>See the mechanism change.</h2><CardiovascularExplorer explorerId={explorerId}/></div></section>
+          <section className="learning-stage"><div className="stage-num">04</div><div><span className="stage-tag">UNDERSTAND</span><h2>{lesson.stages.understand.heading}</h2><p>{lesson.stages.understand.body}</p></div></section>
 
           <StudyDepth study={lesson.study}/>
 
-          <section className="learning-stage"><div className="stage-num">{lesson.interactive ? '05':'04'}</div><div><span className="stage-tag">CONNECT</span><h2>One concept, multiple subjects.</h2><div className="connect-grid">{lesson.stages.connect.map((x,i)=><div key={x}><span>{['A','P','B'][i] || '•'}</span>{x}</div>)}</div></div></section>
-          <section className="learning-stage"><div className="stage-num">{lesson.interactive ? '06':'05'}</div><div><span className="stage-tag">APPLY</span><h2>Use the idea.</h2><p className="apply-question">{lesson.stages.apply.question}</p><details><summary>Reveal reasoning</summary><p>{lesson.stages.apply.answer}</p></details></div></section>
-          <section className="learning-stage"><div className="stage-num">{lesson.interactive ? '07':'06'}</div><div><span className="stage-tag">CHECK YOUR UNDERSTANDING</span><ChoiceBlock data={lesson.stages.check} title="One final check"/></div></section>
+          <section className="learning-stage"><div className="stage-num">05</div><div><span className="stage-tag">CONNECT</span><h2>One concept, multiple subjects.</h2><div className="connect-grid">{lesson.stages.connect.map((x,i)=><div key={x}><span>{['A','P','B'][i] || '•'}</span>{x}</div>)}</div></div></section>
+          <section className="learning-stage"><div className="stage-num">06</div><div><span className="stage-tag">APPLY</span><h2>Use the idea.</h2><p className="apply-question">{lesson.stages.apply.question}</p><details><summary>Reveal reasoning</summary><p>{lesson.stages.apply.answer}</p></details></div></section>
+          <section className="learning-stage"><div className="stage-num">07</div><div><span className="stage-tag">CHECK YOUR UNDERSTANDING</span><ChoiceBlock data={lesson.stages.check} title="One final check"/></div></section>
 
           <section className="source-card"><div><span className="stage-tag">CONTENT PROVENANCE</span><h3>Review before authority.</h3></div><p><strong>Curriculum reference:</strong> NMC Competency Based Medical Education Curriculum 2024.</p><p><strong>Competency mapping:</strong> {lesson.competency}.</p><p><strong>Prototype rule:</strong> Explanations, interactions and questions remain labelled for faculty review until approved by a medical reviewer.</p></section>
 
