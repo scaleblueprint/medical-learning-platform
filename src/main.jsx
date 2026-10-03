@@ -7,6 +7,7 @@ import './features/learning/learning-workspace.css';
 import './features/learning/study-depth.css';
 import './features/learning/cardiovascular-explorers.css';
 import './features/learning/visual-memory.css';
+import './features/therapeutic/therapeutic-area.css';
 
 createRoot(document.getElementById('root')).render(
   <React.StrictMode>
