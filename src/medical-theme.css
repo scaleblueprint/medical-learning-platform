@@ -18,18 +18,21 @@
 html,body{background:var(--paper);color:var(--ink)}
 body{line-height:1.55}
 
-/* The dark header intentionally matches the JPEG lockup background so the brand feels integrated. */
-.topnav{height:88px;background:rgba(24,23,22,.98);border-color:rgba(255,250,244,.12)}
-.amber-brand{gap:13px;padding:0;border:0;background:none;color:var(--white);display:flex;align-items:center}
-.amber-brand-lockup{width:176px;height:52px;display:block;object-fit:contain;object-position:left center;border-radius:4px;flex:none}
-.amber-product-name{font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#e2b17d;padding-left:12px;border-left:1px solid rgba(255,250,244,.22);white-space:nowrap}
+/* Compact brand navigation: enough context to orient the learner without consuming the page. */
+.topnav{height:64px;min-height:64px;padding:0 clamp(18px,4vw,56px);background:rgba(24,23,22,.98);border-color:rgba(255,250,244,.12)}
+.amber-brand{gap:10px;padding:0;border:0;background:none;color:var(--white);display:flex;align-items:center}
+.amber-brand-lockup{width:132px;height:38px;display:block;object-fit:contain;object-position:left center;border-radius:3px;flex:none}
+.amber-product-name{font-size:9px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:#e2b17d;padding-left:10px;border-left:1px solid rgba(255,250,244,.22);white-space:nowrap}
 .amber-brand-footer .amber-brand-lockup{width:154px;height:46px}
 .amber-brand-footer .amber-product-name{font-size:9px}
 .brand-mark,.amber-brand-mark,.amber-brand-copy{display:none}
 
-.nav-links button{color:#f3e9de}
-.nav-links button:hover,.nav-links button:focus-visible{color:#e2a66e}
+.nav-primary{display:flex;align-items:center;gap:4px}
+.nav-primary button{color:#f3e9de;padding:8px 11px;border-radius:999px;transition:background .18s ease,color .18s ease}
+.nav-primary button:hover,.nav-primary button:focus-visible{color:#f6c58f;background:rgba(255,250,244,.07)}
+.nav-primary button.active{color:#fff4e8;background:rgba(207,148,82,.18)}
 .prototype-pill{background:rgba(207,148,82,.12);border-color:rgba(226,166,110,.42);color:#efc69b}
+.mobile-bottom-nav{display:none}
 
 .primary{background:var(--charcoal);border-color:var(--charcoal);color:#fffaf4}
 .primary:hover,.primary:focus-visible{background:var(--deep);border-color:var(--deep)}
@@ -80,14 +83,25 @@ footer .amber-product-name{color:#e2b17d;border-left-color:rgba(255,250,244,.22)
 :focus-visible{outline:3px solid rgba(207,148,82,.48);outline-offset:3px}
 
 @media(max-width:920px){
-  .amber-brand-lockup{width:148px;height:46px}
+  .topnav{padding-left:18px;padding-right:18px}
+  .amber-brand-lockup{width:122px;height:36px}
   .amber-product-name{display:none}
+  .nav-primary{gap:2px}
+  .nav-primary button{font-size:12px;padding:7px 9px}
 }
 
 @media(max-width:760px){
-  .topnav{height:auto;min-height:78px;padding-top:10px;padding-bottom:10px;gap:14px;align-items:flex-start}
-  .amber-brand-lockup{width:132px;height:42px}
-  .nav-links{gap:10px;flex-wrap:wrap;justify-content:flex-end}
-  .prototype-pill{display:none}
+  /* On phones the top brand bar scrolls away. Persistent navigation moves to the thumb-friendly bottom edge. */
+  .topnav{position:static;height:56px;min-height:56px;padding:5px 16px;align-items:center}
+  .amber-brand-lockup{width:116px;height:36px}
+  .nav-primary{display:none}
+  .page-shell{padding-bottom:68px}
+
+  .mobile-bottom-nav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));position:fixed;left:0;right:0;bottom:0;z-index:80;background:rgba(24,23,22,.98);border-top:1px solid rgba(255,250,244,.13);padding:6px 8px calc(6px + env(safe-area-inset-bottom));backdrop-filter:blur(14px)}
+  .mobile-bottom-nav button{min-width:0;min-height:44px;border:0;background:transparent;color:#cdbdb0;border-radius:10px;padding:5px 3px;cursor:pointer}
+  .mobile-bottom-nav button span{display:block;font-size:10px;font-weight:750;letter-spacing:.02em;line-height:1.15;white-space:normal}
+  .mobile-bottom-nav button.active{background:rgba(207,148,82,.18);color:#ffd7ad}
+  .mobile-bottom-nav button:focus-visible{outline-color:rgba(239,198,155,.65)}
+
   footer{align-items:flex-start}
 }
