@@ -3,6 +3,7 @@ import { getLessonNavigation } from '../../platform/catalog/learningNavigation.j
 import CardiacOutputModel from './CardiacOutputModel.jsx';
 import LearningSidebar from './LearningSidebar.jsx';
 import LessonNavigation from './LessonNavigation.jsx';
+import StudyDepth from './StudyDepth.jsx';
 
 function ChoiceBlock({ data, title='Make a prediction' }) {
   const [choice, setChoice] = useState(null);
@@ -58,6 +59,9 @@ export default function LessonPage({ id, systemId = 'cardiovascular', navigate }
           <section className="learning-stage"><div className="stage-num">02</div><div><span className="stage-tag">PREDICT</span><ChoiceBlock data={lesson.stages.predict}/></div></section>
           {lesson.interactive === 'cardiac-output' && <section className="learning-stage"><div className="stage-num">03</div><div><span className="stage-tag">EXPLORE</span><CardiacOutputModel/></div></section>}
           <section className="learning-stage"><div className="stage-num">{lesson.interactive ? '04':'03'}</div><div><span className="stage-tag">UNDERSTAND</span><h2>{lesson.stages.understand.heading}</h2><p>{lesson.stages.understand.body}</p></div></section>
+
+          <StudyDepth study={lesson.study}/>
+
           <section className="learning-stage"><div className="stage-num">{lesson.interactive ? '05':'04'}</div><div><span className="stage-tag">CONNECT</span><h2>One concept, multiple subjects.</h2><div className="connect-grid">{lesson.stages.connect.map((x,i)=><div key={x}><span>{['A','P','B'][i] || '•'}</span>{x}</div>)}</div></div></section>
           <section className="learning-stage"><div className="stage-num">{lesson.interactive ? '06':'05'}</div><div><span className="stage-tag">APPLY</span><h2>Use the idea.</h2><p className="apply-question">{lesson.stages.apply.question}</p><details><summary>Reveal reasoning</summary><p>{lesson.stages.apply.answer}</p></details></div></section>
           <section className="learning-stage"><div className="stage-num">{lesson.interactive ? '07':'06'}</div><div><span className="stage-tag">CHECK YOUR UNDERSTANDING</span><ChoiceBlock data={lesson.stages.check} title="One final check"/></div></section>
